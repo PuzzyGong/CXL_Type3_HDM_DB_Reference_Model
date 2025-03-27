@@ -1,18 +1,25 @@
+#ifndef DEFINE_H
+#define DEFINE_H
+
+// STL include
+#include <algorithm>
+#include <string>
 #include <list>
-#include <stack>
 #include <unordered_map>
 
-
+// IO include
 #include <iostream>
 #include <iomanip>
-#include <string>
 
-#define u32         unsigned int
-#define u64         unsigned long long
-#define u512        unsigned long long  //unsigned long long位宽不足512位，暂定如此
+//
+#include "port.h"
 
-#define HOST_NUM    7                   //此段共享内存有 HOST_NUM 个主机共享
-#define LD_PID      9                   //LD(Logic Device) PID
+//
+#define u32  unsigned int
+#define u64  unsigned long long
+#define u512 unsigned long long // 需要修改 : "unsigned long long" 位宽不足 512 位
 
-#define CPP_ERROR(message)        printf(message)
-#define DONT_PRINT_LD_PID
+// ERROR
+#define CPP_ERROR(message) printf(message)
+
+#endif

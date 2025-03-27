@@ -100,7 +100,7 @@ public:
 };
 static Colorful_Print_Manager colorful_print_manager;
 
-void S2M_BISnp_Type::print() const
+void S2M_Snp_type::print() const
 {
     std::string color = RESET;
 #ifdef COLORFUL_PRINT
@@ -173,7 +173,7 @@ void M2S_Req_Type::print() const
               << RESET << std::endl;
 }
 
-void M2S_BIRsp_Type::print() const
+void M2S_Rsp_type::print() const
 {
     std::string color = RESET;
 #ifdef COLORFUL_PRINT

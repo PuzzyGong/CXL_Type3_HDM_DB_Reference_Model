@@ -2,17 +2,22 @@
 #define PORT_H
 
 /*
-    接口/字段命名规则：
-    参考：CPI spec v1.0 -> Page 11 -> Table 4.1
-                        |                A2F                 |                F2A                 |
-                        |    REQ    |    RSP    |    DATA    |    REQ    |    RSP    |    DATA    |
-    CXL.MEM(Downstream) | S2M BISnp |  S2M NDR  |   S2M DRS  |  M2S Req  | M2S BIRsp |   M2S RwD  |
-*/
-/*
-    除了以下列举的接口，CPI spec 还定义了其他接口/字段：
-    1. 部分接口/字段的功能暂不支持 --> 这些接口/字段在 UVM 环境中不需要考虑
-    2. 部分接口/字段和传输语义无关 --> 这些接口/字段在 UVM_reference_model 中不需要考虑，在 UVM_moniter, UVM_driver 中需要考虑
-    3. 部分接口/字段和传输语义有关 --> 这些接口/字段需要在该工程中补充
+    一、CXL Type3 HDM-DB 硬件中有哪些接口/字段 ？
+
+        参考：CPI spec v1.0 -> Page 11 -> Table 4.1 :
+                            |                A2F                 |                F2A                 |
+                            |    REQ    |    RSP    |    DATA    |    REQ    |    RSP    |    DATA    |
+        CXL.MEM(Downstream) | S2M BISnp |  S2M NDR  |   S2M DRS  |  M2S Req  | M2S BIRsp |   M2S RwD  |
+        总共有六个通道，每个通道有若干接口/字段。
+
+    二、C++ Reference Model 软件中有哪些接口/字段 ？
+
+        各接口/字段在 port.h 中以 class 成员的方式被罗列。"C++ Reference Model 软件接口/字段" 是 "CXL Type3 HDM-DB 硬件接口/字段"的子集。
+
+        Why 只是子集?
+        1. 部分接口/字段的功能暂不使用 --> 这些接口/字段在 UVM 环境中不需要考虑。
+        2. 部分接口/字段和传输语义无关 --> 这些接口/字段在 UVM_reference_model 中不需要考虑，在 UVM_moniter, UVM_driver 中需要考虑。
+        3. 部分接口/字段和传输语义有关 --> 这些接口/字段需要在该工程中补充。
 */
 
 #include "define.h"
@@ -22,7 +27,7 @@
     BISnpInv
     BISnpData
 */
-class S2M_BISnp_Type
+class S2M_Snp_type
 {
 public:
     bool valid;
@@ -69,7 +74,7 @@ public:
     u32 spid;                                 // 12bit
     u32 dpid;                                 // 12bit
 
-    S2M_BISnp_Type() : valid(false), opcode(0), bi_id(0), bitag(0), address_partity(0), address(0), flit_mode(0), epoch_valid(0), epoch_id(0), cmd_parity(0), spid(0), dpid(0) {}
+    S2M_Snp_type() : valid(false), opcode(0), bi_id(0), bitag(0), address_partity(0), address(0), flit_mode(0), epoch_valid(0), epoch_id(0), cmd_parity(0), spid(0), dpid(0) {}
 
     void print() const;
 };
@@ -309,7 +314,7 @@ public:
     BIRspI
     BIRspS
 */
-class M2S_BIRsp_Type
+class M2S_Rsp_type
 {
 public:
     bool valid;
@@ -352,7 +357,8 @@ public:
     /*                */ u32 cmd_parity; //  1bit
     u32 dpid;                            // 12bit
 
-    M2S_BIRsp_Type() : valid(false), opcode(0), bi_id(0), bitag(0), lowaddr(0), flit_mode(0), cmd_parity(0), dpid(0) {}
+    S2M_Snp_type snp;                    // 非接口，用来简化代码的
+    M2S_Rsp_type() : valid(false), opcode(0), bi_id(0), bitag(0), lowaddr(0), flit_mode(0), cmd_parity(0), dpid(0), snp() {}
 
     void print() const;
 };
@@ -515,6 +521,18 @@ public:
     Wr_Type(bool Valid, u64 Address, u512 Data) : valid(Valid), address(Address), data_body(Data) {}
 
     void print() const;
+};
+
+class Victim_Type{
+    public: M2S_Req_Type cmd;
+};
+
+class CXL_io_Req_Type{
+    public: bool valid;
+};
+
+class CXL_io_Rsp_Type{
+    public: bool valid;
 };
 
 #endif
