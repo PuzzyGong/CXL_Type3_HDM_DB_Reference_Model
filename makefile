@@ -9,14 +9,14 @@ OUT_DIR = out
 # Linux : TARGET  OR  Windows : TARGET.exe
 TARGET = main
 
-
 ##### Compilation
 # find all .cpp files, mapping to .o files
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OUT_DIR)/%.o, $(SRCS))
+INCS = $(wildcard $(INC_DIR)/*.h)
 
 # convert to .o files
-$(OUT_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OUT_DIR)
+$(OUT_DIR)/%.o: $(SRC_DIR)/%.cpp $(INCS) | $(OUT_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # 
@@ -24,7 +24,7 @@ $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
 
-##### Clean
+##### cleaning only can be used in Linux
 .PHONY: clean
 
 clean:

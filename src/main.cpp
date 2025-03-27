@@ -1126,13 +1126,7 @@
 // */
 
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
-#define MAGENTA "\033[35m"
-#define CYAN    "\033[36m"
+
 
 // int main() {
     
@@ -1205,33 +1199,76 @@
 #include "port.h"
 
 int main() {
+
+
+
+
+
+
+    //M2S_RwD_Type m2s_rwd;
+    //m2s_rwd.address = 1;
+    //m2s_rwd.print();
+
+    //
+    M2S_Req_Type m2s_req;
+    m2s_req.tag = 901;
+    m2s_req.address = 11;
+    m2s_req.spid = 3;
+    m2s_req.print();
+    m2s_req.tag = 901;
+    m2s_req.address = 11;
+    m2s_req.spid = 4;
+    m2s_req.print();
+    m2s_req.tag = 901;
+    m2s_req.address = 11;
+    m2s_req.spid = 5;
+    m2s_req.print();
+    m2s_req.tag = 901;
+    m2s_req.address = 11;
+    m2s_req.spid = 6;
+    m2s_req.print();
+
+
+    //M2S_Req_Type m2s_req;
+    m2s_req.tag = 901;
+    m2s_req.address = 11;
+    m2s_req.spid = 2;
+    m2s_req.print();
+
     S2M_BISnp_Type s2m_bisnp;
-    s2m_bisnp.print(RED, RESET);
-
-    S2M_DRS_Type s2m_drs;
-    s2m_drs.print(RED, RESET);
-
-    S2M_NDR_Type s2m_ndr;
-    s2m_ndr.print(RED, RESET);
+    s2m_bisnp.bitag = 0;
+    s2m_bisnp.address = 11;
+    s2m_bisnp.dpid = 1;
+    s2m_bisnp.print();
 
     M2S_BIRsp_Type m2s_birsp;
-    m2s_birsp.print(RED, RESET);
+    m2s_birsp.bitag = 0;
+    m2s_birsp.print();
 
-    M2S_RwD_Type m2s_rwd;
-    m2s_rwd.print(RED, RESET);
 
-    M2S_Req_Type m2s_req;
-    m2s_req.print(RED, RESET);
-
-    Rd_Data_Type rd_data;
-    rd_data.print(RED, RESET);
 
     Rd_Addr_Type rd_addr;
-    rd_addr.print(RED, RESET);
-
-    Wr_Type wr;
-    wr.print(RED, RESET);
+    rd_addr.address = 11;
+    rd_addr.print();
     
+    Rd_Data_Type rd_data;
+    rd_data.address = 11;
+    rd_data.data_body = 511;
+    rd_data.print();
+
+    S2M_NDR_Type s2m_ndr;
+    s2m_ndr.tag = 901;
+    s2m_ndr.dpid = 2;
+    s2m_ndr.print();
+
+    S2M_DRS_Type s2m_drs;
+    s2m_drs.tag = 901;
+    s2m_drs.dpid = 2;
+    s2m_drs.data_body = 511;
+    s2m_drs.print();
+
+
+
 
     return 0;
 }
