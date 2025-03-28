@@ -5,9 +5,7 @@ CXXFLAGS = -Wall -g -std=c++17 -Iinclude
 INC_DIR = include
 SRC_DIR = src
 OUT_DIR = out
-
-# Linux : TARGET  OR  Windows : TARGET.exe
-TARGET = main
+TARGET = main		# Linux : TARGET  OR  Windows : TARGET.exe
 
 ##### Compilation
 # find all .cpp files, mapping to .o files
@@ -23,9 +21,10 @@ $(OUT_DIR)/%.o: $(SRC_DIR)/%.cpp $(INCS) | $(OUT_DIR)
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
-
-##### cleaning only can be used in Linux
-.PHONY: clean
+#####
+.PHONY: clean		# can be used in Linux
 
 clean:
-	rm -rf $(OUT_DIR) $(TARGET)
+	if exist $(OUT_DIR) rmdir /s /q $(OUT_DIR)
+	if exist $(TARGET).exe del /f /q $(TARGET).exe
+	if exist $(TARGET) del /f /q $(TARGET)
