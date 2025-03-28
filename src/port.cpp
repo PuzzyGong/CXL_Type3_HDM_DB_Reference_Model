@@ -45,9 +45,7 @@ public:
         color_array_index = (color_array_index == 6 - 1) ? 0 : color_array_index + 1;
         list.push_back(Elecment(color_array_index, address, tag));
         if (list.size() > 6)
-        {
             list.pop_front(); // prevent Heap Overflow / Out Of Memory
-        }
         return color_array[color_array_index];
     }
 
@@ -56,10 +54,10 @@ public:
         for (auto it = list.begin(); it != list.end(); ++it)
         {
             if (it->address == address)
-                it->bi_tag_list.push_back(bi_tag);
-            if (it->bi_tag_list.size() > 10)
             {
-                it->bi_tag_list.pop_back(); // prevent Heap Overflow / Out Of Memory
+                it->bi_tag_list.push_back(bi_tag);
+                if (it->bi_tag_list.size() > 10)
+                    it->bi_tag_list.pop_back(); // prevent Heap Overflow / Out Of Memory
             }
             return color_array[it->color_index + 6];
         }

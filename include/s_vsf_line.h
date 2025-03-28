@@ -26,8 +26,8 @@ class S_VSF_Line_Type{
     bool skip_RdData;
     bool skip_DRS_NDR;
     bool victim;
-    unsigned int tag;
-    unsigned int host_pid;
+    u32 tag;
+    u32 host_pid;
     u64 cacheline_addr;
     u512 cacheline_data;
 

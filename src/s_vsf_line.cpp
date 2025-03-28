@@ -5,7 +5,7 @@ void S_VSF_Line_Type::check_host(const std::list<u32> &host_pid_list)
     auto it = vsf_line.begin();
     while (it != vsf_line.end())
     {
-        int key = it->first;
+        u32 key = it->first;
         if (std::find(host_pid_list.begin(), host_pid_list.end(), key) == host_pid_list.end())
         {
             if (it->second != I)
@@ -17,7 +17,7 @@ void S_VSF_Line_Type::check_host(const std::list<u32> &host_pid_list)
             ++it;
         }
     }
-    for (int new_key : host_pid_list)
+    for (u32 new_key : host_pid_list)
     {
         if (vsf_line.find(new_key) == vsf_line.end())
         {
@@ -57,8 +57,10 @@ bool S_VSF_Line_Type::product(
                 m2s_req.metafield == M2S_Req_Type::MetaField_Enum::Meta0State &&
                 m2s_req.metavalue == M2S_Req_Type::MetaValue_Enum::A)
             {
-                for (auto vsf_elecment : vsf_line)
+                
+                for (auto it = vsf_line.begin(); it != vsf_line.end(); ++it)
                 {
+                    auto& vsf_elecment = *it;
                     if (vsf_elecment.first == host_pid)
                     {
                         vsf_elecment.second = NeedForMemData;
@@ -83,8 +85,9 @@ bool S_VSF_Line_Type::product(
                 m2s_req.metafield == M2S_Req_Type::MetaField_Enum::Meta0State &&
                 m2s_req.metavalue == M2S_Req_Type::MetaValue_Enum::S)
             {
-                for (auto vsf_elecment : vsf_line)
+                for (auto it = vsf_line.begin(); it != vsf_line.end(); ++it)
                 {
+                    auto& vsf_elecment = *it;
                     if (vsf_elecment.first == host_pid)
                     {
                         vsf_elecment.second = NeedForMemData;
@@ -109,8 +112,9 @@ bool S_VSF_Line_Type::product(
                 m2s_req.metafield == M2S_Req_Type::MetaField_Enum::Meta0State &&
                 m2s_req.metavalue == M2S_Req_Type::MetaValue_Enum::I)
             {
-                for (auto vsf_elecment : vsf_line)
+                for (auto it = vsf_line.begin(); it != vsf_line.end(); ++it)
                 {
+                    auto& vsf_elecment = *it;
                     if (vsf_elecment.first == host_pid)
                     {
                         vsf_elecment.second = I;

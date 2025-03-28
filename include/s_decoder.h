@@ -7,8 +7,9 @@
 class S_Decoder
 {
 public:
-    S_Decoder();
+    S_Decoder() {}
     inline void product(const CXL_io_Req_Type &cxl_io_req, std::list<CXL_io_Rsp_Type> &cxl_io_rsp) { }
+    inline bool is_host_pid(u32 host_pid) const { return host_pid == 1 || host_pid == 3 || host_pid == 5 || host_pid == 7 || host_pid == 11 || host_pid == 13 || host_pid == 17 || host_pid == 19 || host_pid == 23 || host_pid == 29;}
     inline void get_host_pid(std::list<u32> &host_id_list) const { host_id_list.assign({1, 3, 5, 7, 11, 13, 17, 19, 23, 29}); }
     inline u32 get_device_pid(void) const { return 999; }
     inline void decode(const M2S_Req_Type &i_m2s_req, M2S_Req_Type &o_m2s_req) { o_m2s_req = i_m2s_req; }

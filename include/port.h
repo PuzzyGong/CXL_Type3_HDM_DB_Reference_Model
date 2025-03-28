@@ -32,7 +32,7 @@ class S2M_Snp_type
 public:
     bool valid;
 
-    u32 opcode;                               //  4bit
+    u32 opcode; //  4bit
     enum Opcode_Enum
     {
         BISnpCur = 0b0000,
@@ -62,6 +62,24 @@ public:
             return "Unknown";
         }
     }
+    inline bool setOpcodeName(std::string name)
+    {
+        if (name == "BISnpCur")
+            opcode = BISnpCur;
+        else if (name == "BISnpData")
+            opcode = BISnpData;
+        else if (name == "BISnpInv")
+            opcode = BISnpInv;
+        else if (name == "BISnpCurBlk")
+            opcode = BISnpCurBlk;
+        else if (name == "BISnpDataBlk")
+            opcode = BISnpDataBlk;
+        else if (name == "BISnpInvBlk")
+            opcode = BISnpInvBlk;
+        else
+            return false;
+        return true;
+    }
 
     /*                */ u32 bi_id;           // 12bit
     u32 bitag;                                // 12bit
@@ -81,7 +99,7 @@ public:
 
 /*
     Now Support:
-    Cmp   
+    Cmp
     BIConflictAck
 */
 class S2M_NDR_Type
@@ -89,7 +107,7 @@ class S2M_NDR_Type
 public:
     bool valid;
 
-    u32 opcode;                           //  4bit
+    u32 opcode; //  4bit
     enum Opcode_Enum
     {
         Cmp = 0b000,
@@ -112,6 +130,20 @@ public:
         default:
             return "Unknown";
         }
+    }
+    inline bool setOpcodeName(std::string name)
+    {
+        if (name == "Cmp")
+            opcode = Cmp;
+        else if (name == "CmpS")
+            opcode = CmpS;
+        else if (name == "CmpE")
+            opcode = CmpE;
+        else if (name == "BIConflictAck")
+            opcode = BIConflictAck;
+        else
+            return false;
+        return true;
     }
 
     /*                */ u32 metafield;   //  2bit
@@ -140,7 +172,7 @@ class S2M_DRS_Type
 public:
     bool valid;
 
-    u32 opcode;                                //  4bit
+    u32 opcode; //  4bit
     enum Opcode_Enum
     {
         MemData = 0b000,
@@ -158,6 +190,16 @@ public:
             return "Unknown";
         }
     }
+    inline bool setOpcodeName(std::string name)
+    {
+        if (name == "MemData")
+            opcode = MemData;
+        else if (name == "MemDataNXM")
+            opcode = MemDataNXM;
+        else
+            return false;
+        return true;
+    }
 
     /*                */ u32 metafield;        //  2bit
     /*                */ u32 metavalue;        //  2bit
@@ -172,7 +214,7 @@ public:
     u32 dpid;                                  // 12bit
     /*                */ u32 data_poison;      //  1bit
     /*                */ u64 data_byte_enable; // 64bit
-    u512 data_body;                            //512bit
+    u512 data_body;                            // 512bit
 
     S2M_DRS_Type() : valid(false), opcode(0), metafield(0), metavalue(0), tag(0), ld_id(0), devload(0), flit_mode(0), epoch_valid(0), epoch_id(0), cmd_parity(0), spid(0), dpid(0), data_poison(0), data_byte_enable(0), data_body(0) {}
 
@@ -190,7 +232,7 @@ class M2S_Req_Type
 public:
     bool valid;
 
-    u32 memopcode;                            //  4bit
+    u32 memopcode; //  4bit
     enum MemOpcode_Enum
     {
         MemInv = 0b0000,
@@ -226,8 +268,30 @@ public:
             return "Unknown";
         }
     }
+    inline bool setMemOpcodeName(std::string name)
+    {
+        if (name == "MemInv")
+            memopcode = MemInv;
+        else if (name == "MemRd")
+            memopcode = MemRd;
+        else if (name == "MemRdData")
+            memopcode = MemRdData;
+        else if (name == "MemRdFwd")
+            memopcode = MemRdFwd;
+        else if (name == "MemWrFwd")
+            memopcode = MemWrFwd;
+        else if (name == "MemSpecRd")
+            memopcode = MemSpecRd;
+        else if (name == "MemInvNT")
+            memopcode = MemInvNT;
+        else if (name == "MemClnEvct")
+            memopcode = MemClnEvct;
+        else
+            return false;
+        return true;
+    }
 
-    u32 snptype;                              //  3bit
+    u32 snptype; //  3bit
     enum SnpType_Enum
     {
         NoOp = 0b000,
@@ -251,8 +315,22 @@ public:
             return "Unknown";
         }
     }
+    inline bool setSnpTypeName(std::string name)
+    {
+        if (name == "NoOp")
+            snptype = NoOp;
+        else if (name == "SnpData")
+            snptype = SnpData;
+        else if (name == "SnpCur")
+            snptype = SnpCur;
+        else if (name == "SnpInv")
+            snptype = SnpInv;
+        else
+            return false;
+        return true;
+    }
 
-    u32 metafield;                            //  2bit
+    u32 metafield; //  2bit
     enum MetaField_Enum
     {
         Meta0State = 0b00,
@@ -270,8 +348,18 @@ public:
             return "Unknown";
         }
     }
+    inline bool setMetaFieldName(std::string name)
+    {
+        if (name == "Meta0State")
+            metafield = Meta0State;
+        else if (name == "NoOp")
+            metafield = NoOp_;
+        else
+            return false;
+        return true;
+    }
 
-    u32 metavalue;                            //  2bit
+    u32 metavalue; //  2bit
     enum MetaValue_Enum
     {
         I = 0b00,
@@ -291,6 +379,18 @@ public:
         default:
             return "Unknown";
         }
+    }
+    inline bool setMetaValueName(std::string name)
+    {
+        if (name == "I")
+            metavalue = I;
+        else if (name == "A")
+            metavalue = A;
+        else if (name == "S")
+            metavalue = S;
+        else
+            return false;
+        return true;
     }
 
     u32 tag;                                  // 16bit
@@ -319,7 +419,7 @@ class M2S_Rsp_type
 public:
     bool valid;
 
-    u32 opcode;                          //  4bit
+    u32 opcode; //  4bit
     enum Opcode_Enum
     {
         BIRspI = 0b0000,
@@ -349,6 +449,24 @@ public:
             return "Unknown";
         }
     }
+    inline bool setOpcodeName(std::string name)
+    {
+        if (name == "BIRspI")
+            opcode = BIRspI;
+        else if (name == "BIRspS")
+            opcode = BIRspS;
+        else if (name == "BIRspE")
+            opcode = BIRspE;
+        else if (name == "BIRspIBlk")
+            opcode = BIRspIBlk;
+        else if (name == "BIRspSBlk")
+            opcode = BIRspSBlk;
+        else if (name == "BIRspEBlk")
+            opcode = BIRspEBlk;
+        else
+            return false;
+        return true;
+    }
 
     /*                */ u32 bi_id;      // 12bit
     u32 bitag;                           // 12bit
@@ -357,7 +475,7 @@ public:
     /*                */ u32 cmd_parity; //  1bit
     u32 dpid;                            // 12bit
 
-    S2M_Snp_type snp;                    // 非接口，用来简化代码的
+    S2M_Snp_type snp; // 非接口，用来简化代码的
     M2S_Rsp_type() : valid(false), opcode(0), bi_id(0), bitag(0), lowaddr(0), flit_mode(0), cmd_parity(0), dpid(0), snp() {}
 
     void print() const;
@@ -371,9 +489,9 @@ public:
 class M2S_RwD_Type
 {
 public:
-    bool valid;                                //  1bit
+    bool valid; //  1bit
 
-    u32 memopcode;                             //  4bit
+    u32 memopcode; //  4bit
     enum MemOpcode_Enum
     {
         MemWr = 0b0001,
@@ -394,8 +512,20 @@ public:
             return "Unknown";
         }
     }
+    inline bool setMemOpcodeName(std::string name)
+    {
+        if (name == "MemWr")
+            memopcode = MemWr;
+        else if (name == "MemWrPtl")
+            memopcode = MemWrPtl;
+        else if (name == "BIConflict")
+            memopcode = BIConflict;
+        else
+            return false;
+        return true;
+    }
 
-    u32 snptype;                               //  3bit
+    u32 snptype; //  3bit
     enum SnpType_Enum
     {
         NoOp = 0b000,
@@ -419,8 +549,22 @@ public:
             return "Unknown";
         }
     }
+    inline bool setSnpTypeName(std::string name)
+    {
+        if (name == "NoOp")
+            snptype = NoOp;
+        else if (name == "SnpData")
+            snptype = SnpData;
+        else if (name == "SnpCur")
+            snptype = SnpCur;
+        else if (name == "SnpInv")
+            snptype = SnpInv;
+        else
+            return false;
+        return true;
+    }
 
-    u32 metafield;                             //  2bit
+    u32 metafield; //  2bit
     enum MetaField_Enum
     {
         Meta0State = 0b00,
@@ -438,8 +582,18 @@ public:
             return "Unknown";
         }
     }
+    inline bool setMetaFieldName(std::string name)
+    {
+        if (name == "Meta0State")
+            metafield = Meta0State;
+        else if (name == "NoOp")
+            metafield = NoOp_;
+        else
+            return false;
+        return true;
+    }
 
-    u32 metavalue;                             //  2bit
+    u32 metavalue; //  2bit
     enum MetaValue_Enum
     {
         I = 0b00,
@@ -460,6 +614,18 @@ public:
             return "Unknown";
         }
     }
+    inline bool setMetaValueName(std::string name)
+    {
+        if (name == "I")
+            metavalue = I;
+        else if (name == "A")
+            metavalue = A;
+        else if (name == "S")
+            metavalue = S;
+        else
+            return false;
+        return true;
+    }
 
     u32 tag;                                   // 16bit
     /*                */ u32 tc;               //  2bit
@@ -472,7 +638,7 @@ public:
     u32 dpid;                                  // 12bit
     /*                */ u32 data_poison;      //  1bit
     /*                */ u64 data_byte_enable; // 64bit
-    u512 data_body;                            //512bit
+    u512 data_body;                            // 512bit
 
     M2S_RwD_Type() : valid(false), memopcode(0), snptype(0), metafield(0), metavalue(0), tag(0), tc(0), address_partity(0), address(0), ld_id(0), flit_mode(0), cmd_parity(0), spid(0), dpid(0), data_poison(0), data_byte_enable(0), data_body(0) {}
 
@@ -523,16 +689,23 @@ public:
     void print() const;
 };
 
-class Victim_Type{
-    public: M2S_Req_Type cmd;
+class Victim_Type
+{
+public:
+    M2S_Req_Type cmd;
 };
 
-class CXL_io_Req_Type{
-    public: bool valid;
+class CXL_io_Req_Type
+{
+public:
+    bool valid;
 };
 
-class CXL_io_Rsp_Type{
-    public: bool valid;
+class CXL_io_Rsp_Type
+{
+public:
+    bool valid;
+    inline void print() {};
 };
 
 #endif
