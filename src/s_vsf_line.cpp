@@ -180,7 +180,7 @@ bool S_VSF_Line_Type::product(
         }
 
         bool has_needfor_flag = 0;
-        for (auto vsf_elecment : vsf_line)
+        for (auto& vsf_elecment : vsf_line)
         {
             if (vsf_elecment.second == NeedForRspI || vsf_elecment.second == NeedForRspIS)
             {
@@ -255,7 +255,6 @@ bool S_VSF_Line_Type::product(
                 s2m_ndr.tag = tag;
                 s2m_ndr.dpid = host_pid;
             }
-            S2M_DRS_Type s2m_drs;
             s2m_drs.valid = true;
             s2m_drs.opcode = S2M_DRS_Type::Opcode_Enum::MemData;
             s2m_drs.tag = tag;

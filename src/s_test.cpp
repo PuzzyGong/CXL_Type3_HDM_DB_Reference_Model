@@ -2,11 +2,6 @@
 
 void S_Test_Type::pop_and_print_selected(bool pop_bisnp, bool pop_rdaddr, bool pop_ndr, bool pop_drs, bool pop_wr, bool pop_cxl_io_rsp)
 {
-    if (pop_bisnp && !s2m_snp.empty())
-    {
-        s2m_snp.front().print();
-        s2m_snp.pop_front();
-    }
     if (pop_rdaddr && !rd_addr.empty())
     {
         rd_addr.front().print();
@@ -24,6 +19,11 @@ void S_Test_Type::pop_and_print_selected(bool pop_bisnp, bool pop_rdaddr, bool p
     {
         s2m_drs.front().print();
         s2m_drs.pop_front();
+    }
+    if (pop_bisnp && !s2m_snp.empty())
+    {
+        s2m_snp.front().print();
+        s2m_snp.pop_front();
     }
     if (pop_wr && !wr.empty())
     {

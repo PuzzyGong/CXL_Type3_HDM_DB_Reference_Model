@@ -10,6 +10,7 @@ int main() {
         "{ XXXXX + XXXXXX  + X  <XXX>  XXX  (XXX) }{ BIRspI  000 }{ XXXXX + XXXX + X  <XXX>  XXX  (XXX) [XXX] }."
         "{ MemRd + SnpData + S  <902>  005  (011) }{ XXXXXX  XXX }{ XXXXX + XXXX + X  <XXX>  XXX  (XXX) [XXX] }."
         "{ XXXXX + XXXXXX  + X  <XXX>  XXX  (XXX) }{ BIRspS  001 }{ XXXXX + XXXX + X  <XXX>  XXX  (XXX) [XXX] }."
+        "{ XXXXX + XXXXXX  + X  <XXX>  XXX  (XXX) }{ XXXXXX  XXX }{ XXXXX + XXXX + X  <XXX>  XXX  (XXX) [XXX] }."
     );
     return 0;
 }

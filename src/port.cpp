@@ -32,8 +32,9 @@ private:
         u64 address;
         u32 tag;
         std::list<u32> bi_tag_list;
+        bool had_been_ndr_drs;
 
-        Elecment(unsigned int color_index, u64 address, u32 tag) : color_index(color_index), address(address), tag(tag) {}
+        Elecment(unsigned int color_index, u64 address, u32 tag) : color_index(color_index), address(address), tag(tag), had_been_ndr_drs(false){}
     };
 
 public:
@@ -53,13 +54,13 @@ public:
     {
         for (auto it = list.begin(); it != list.end(); ++it)
         {
-            if (it->address == address)
+            if (it->address == address && !it->had_been_ndr_drs)
             {
                 it->bi_tag_list.push_back(bi_tag);
                 if (it->bi_tag_list.size() > 10)
                     it->bi_tag_list.pop_back(); // prevent Heap Overflow / Out Of Memory
+                return color_array[it->color_index + 6];
             }
-            return color_array[it->color_index + 6];
         }
         return RESET;
     }
@@ -70,7 +71,7 @@ public:
         {
             for (auto i : it->bi_tag_list)
             {
-                if (i == bi_tag)
+                if (i == bi_tag && !it->had_been_ndr_drs)
                     return color_array[it->color_index + 6];
             }
         }
@@ -81,8 +82,10 @@ public:
     {
         for (auto it = list.begin(); it != list.end(); ++it)
         {
-            if (it->tag == tag)
+            if (it->tag == tag){
+                it->had_been_ndr_drs = true;
                 return color_array[it->color_index];
+            }
         }
         return RESET;
     }
@@ -90,7 +93,7 @@ public:
     {
         for (auto it = list.begin(); it != list.end(); ++it)
         {
-            if (it->address == address)
+            if (it->address == address && !it->had_been_ndr_drs)
                 return color_array[it->color_index];
         }
         return RESET;

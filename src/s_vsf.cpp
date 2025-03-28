@@ -275,6 +275,7 @@ void S_VSF_Type::main_product(
         mapper[mapper_bitag_now] = s2m_snp_single;
         mapper_bitag_now = (mapper_bitag_now + 1) % (1 << 12);
     }
+    s2m_snp_not_alloc_bitag.clear();
 #else
     if (s2m_snp_provide_bitag.valid)
     {
