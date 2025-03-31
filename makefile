@@ -18,13 +18,5 @@ $(OUT_DIR)/%.o: $(SRC_DIR)/%.cpp $(INCS) | $(OUT_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # 
-$(TARGET): $(OBJS)
+$(OUT_DIR)/$(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
-
-#####
-.PHONY: clean		# can be used in Linux
-
-clean:
-	if exist $(OUT_DIR) rmdir /s /q $(OUT_DIR)
-	if exist $(TARGET).exe del /f /q $(TARGET).exe
-	if exist $(TARGET) del /f /q $(TARGET)

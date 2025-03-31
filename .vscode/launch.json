@@ -11,7 +11,7 @@
             "name": "Debug with Make",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/main",
+            "program": "${workspaceFolder}/out/main",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
