@@ -109,7 +109,7 @@ void S2M_Snp_type::print() const
 #endif
 
     std::cout << std::left << std::setfill(' ') << color
-              << S2M_SPACE << "S2M_BISnp :  " << std::setw(10) << getOpcodeName()
+              << S2M_SPACE << "S2M_BISnp :  " << std::setw(10) << get_opcode_name()
 
               << std::right << std::setfill('0')
               << "BITag:" << RESET << "<" << color << std::setw(3) << std::to_string(bitag % 1000) << RESET << "> " << color
@@ -129,7 +129,7 @@ void S2M_NDR_Type::print() const
 #endif
 
     std::cout << std::left << std::setfill(' ') << color
-              << S2M_SPACE << "S2M_NDR   :  " << std::setw(10) << getOpcodeName()
+              << S2M_SPACE << "S2M_NDR   :  " << std::setw(10) << get_opcode_name()
 
               << std::right << std::setfill('0')
               << "Tag  :" << RESET << "<" << color << std::setw(3) << std::to_string(tag % 1000) << RESET << "> " << color
@@ -145,7 +145,7 @@ void S2M_DRS_Type::print() const
 #endif
 
     std::cout << std::left << std::setfill(' ') << color
-              << S2M_SPACE << "S2M_DRS   :  " << std::setw(10) << getOpcodeName()
+              << S2M_SPACE << "S2M_DRS   :  " << std::setw(10) << get_opcode_name()
 
               << std::right << std::setfill('0')
               << "Tag  :" << RESET << "<" << color << std::setw(3) << std::to_string(tag % 1000) << RESET << "> " << color
@@ -162,7 +162,7 @@ void M2S_Req_Type::print() const
 #endif
 
     std::cout << std::left << std::setfill(' ') << color
-              << "M2S_Req   :  " << std::setw(22) << getMemOpcodeName() + " + " + getSnpTypeName() + " + " + getMetaValueName()
+              << "M2S_Req   :  " << std::setw(22) << get_memopcode_name() + " + " + get_snptype_name() + " + " + get_metavalue_name()
 
               << std::right << std::setfill('0')
               << "Tag  :" << RESET << "<" << color << std::setw(3) << std::to_string(tag % 1000) << RESET << "> " << color
@@ -182,7 +182,7 @@ void M2S_Rsp_type::print() const
 #endif
 
     std::cout << std::left << std::setfill(' ') << color
-              << "M2S_BIRsp :  " << std::setw(22) << getOpcodeName()
+              << "M2S_BIRsp :  " << std::setw(22) << get_opcode_name()
 
               << std::right << std::setfill('0')
               << "BITag:" << RESET << "<" << color << std::setw(3) << std::to_string(bitag % 1000) << RESET << "> " << color
@@ -200,7 +200,7 @@ void M2S_RwD_Type::print() const
 #endif
 
     std::cout << std::left << std::setfill(' ') << color
-              << "M2S_RwD   :  " << std::setw(22) << getMemOpcodeName() + " + " + getSnpTypeName() + " + " + getMetaValueName()
+              << "M2S_RwD   :  " << std::setw(22) << get_memopcode_name() + " + " + get_snptype_name() + " + " + get_metavalue_name()
 
               << std::right << std::setfill('0')
               << "Tag  :" << RESET << "<" << color << std::setw(3) << std::to_string(tag % 1000) << RESET << "> " << color

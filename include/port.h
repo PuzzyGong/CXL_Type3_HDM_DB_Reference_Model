@@ -9,7 +9,6 @@
                             |    REQ    |    RSP    |    DATA    |    REQ    |    RSP    |    DATA    |
         CXL.MEM(Downstream) | S2M BISnp |  S2M NDR  |   S2M DRS  |  M2S Req  | M2S BIRsp |   M2S RwD  |
         总共有六个通道，每个通道有若干接口/字段。
-
     二、C++ Reference Model 软件中有哪些接口/字段 ？
 
         各接口/字段在 port.h 中以 class 成员的方式被罗列。"C++ Reference Model 软件接口/字段" 是 "CXL Type3 HDM-DB 硬件接口/字段"的子集。
@@ -42,7 +41,7 @@ public:
         BISnpDataBlk = 0b0101,
         BISnpInvBlk = 0b0110
     };
-    inline std::string getOpcodeName() const
+    inline std::string get_opcode_name() const
     {
         switch (opcode)
         {
@@ -62,7 +61,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setOpcodeName(std::string name)
+    inline bool set_opcode_name(std::string name)
     {
         if (name == "BISnpCur")
             opcode = BISnpCur;
@@ -115,7 +114,7 @@ public:
         CmpE = 0b010,
         BIConflictAck = 0b100
     };
-    inline std::string getOpcodeName() const
+    inline std::string get_opcode_name() const
     {
         switch (opcode)
         {
@@ -131,7 +130,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setOpcodeName(std::string name)
+    inline bool set_opcode_name(std::string name)
     {
         if (name == "Cmp")
             opcode = Cmp;
@@ -178,7 +177,7 @@ public:
         MemData = 0b000,
         MemDataNXM = 0b001
     };
-    inline std::string getOpcodeName() const
+    inline std::string get_opcode_name() const
     {
         switch (opcode)
         {
@@ -190,7 +189,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setOpcodeName(std::string name)
+    inline bool set_opcode_name(std::string name)
     {
         if (name == "MemData")
             opcode = MemData;
@@ -244,7 +243,7 @@ public:
         MemInvNT = 0b1001,
         MemClnEvct = 0b1010
     };
-    inline std::string getMemOpcodeName() const
+    inline std::string get_memopcode_name() const
     {
         switch (memopcode)
         {
@@ -268,7 +267,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setMemOpcodeName(std::string name)
+    inline bool set_memopcode_name(std::string name)
     {
         if (name == "MemInv")
             memopcode = MemInv;
@@ -299,7 +298,7 @@ public:
         SnpCur = 0b010,
         SnpInv = 0b011
     };
-    inline std::string getSnpTypeName() const
+    inline std::string get_snptype_name() const
     {
         switch (snptype)
         {
@@ -315,7 +314,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setSnpTypeName(std::string name)
+    inline bool set_snptype_name(std::string name)
     {
         if (name == "NoOp")
             snptype = NoOp;
@@ -336,7 +335,7 @@ public:
         Meta0State = 0b00,
         NoOp_ = 0b11
     };
-    inline std::string getMetaFieldName() const
+    inline std::string get_metafield_name() const
     {
         switch (metafield)
         {
@@ -348,7 +347,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setMetaFieldName(std::string name)
+    inline bool set_metafield_name(std::string name)
     {
         if (name == "Meta0State")
             metafield = Meta0State;
@@ -366,7 +365,7 @@ public:
         A = 0b10,
         S = 0b11
     };
-    inline std::string getMetaValueName() const
+    inline std::string get_metavalue_name() const
     {
         switch (metavalue)
         {
@@ -380,7 +379,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setMetaValueName(std::string name)
+    inline bool set_metavalue_name(std::string name)
     {
         if (name == "I")
             metavalue = I;
@@ -429,7 +428,7 @@ public:
         BIRspSBlk = 0b0101,
         BIRspEBlk = 0b0110
     };
-    inline std::string getOpcodeName() const
+    inline std::string get_opcode_name() const
     {
         switch (opcode)
         {
@@ -449,7 +448,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setOpcodeName(std::string name)
+    inline bool set_opcode_name(std::string name)
     {
         if (name == "BIRspI")
             opcode = BIRspI;
@@ -498,7 +497,7 @@ public:
         MemWrPtl = 0b0010,
         BIConflict = 0b0100
     };
-    inline std::string getMemOpcodeName() const
+    inline std::string get_memopcode_name() const
     {
         switch (memopcode)
         {
@@ -512,7 +511,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setMemOpcodeName(std::string name)
+    inline bool set_memopcode_name(std::string name)
     {
         if (name == "MemWr")
             memopcode = MemWr;
@@ -533,7 +532,7 @@ public:
         SnpCur = 0b010,
         SnpInv = 0b011
     };
-    inline std::string getSnpTypeName() const
+    inline std::string get_snptype_name() const
     {
         switch (snptype)
         {
@@ -549,7 +548,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setSnpTypeName(std::string name)
+    inline bool set_snptype_name(std::string name)
     {
         if (name == "NoOp")
             snptype = NoOp;
@@ -570,7 +569,7 @@ public:
         Meta0State = 0b00,
         NoOp_ = 0b11
     };
-    inline std::string getMetaFieldName() const
+    inline std::string get_metafield_name() const
     {
         switch (metafield)
         {
@@ -582,7 +581,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setMetaFieldName(std::string name)
+    inline bool set_metafield_name(std::string name)
     {
         if (name == "Meta0State")
             metafield = Meta0State;
@@ -600,7 +599,7 @@ public:
         A = 0b10,
         S = 0b11
     };
-    inline std::string getMetaValueName() const
+    inline std::string get_metavalue_name() const
     {
         switch (metavalue)
         {
@@ -614,7 +613,7 @@ public:
             return "Unknown";
         }
     }
-    inline bool setMetaValueName(std::string name)
+    inline bool set_metavalue_name(std::string name)
     {
         if (name == "I")
             metavalue = I;

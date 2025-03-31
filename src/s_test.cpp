@@ -109,27 +109,27 @@ void S_Test_Type::process_chunk(const std::string &chunk, char end_char)
         M2S_Rsp_type m2s_rsp;
         M2S_RwD_Type m2s_rwd;
 
-        if (m2s_req.setMemOpcodeName(tokens[0]))
+        if (m2s_req.set_memopcode_name(tokens[0]))
         {
             m2s_req.valid = true;
-            m2s_req.setSnpTypeName(tokens[1]);
-            m2s_req.setMetaValueName(tokens[2]);
+            m2s_req.set_snptype_name(tokens[1]);
+            m2s_req.set_metavalue_name(tokens[2]);
             m2s_req.tag = std::stoll(tokens[3]);
             m2s_req.spid = std::stoll(tokens[4]);
             m2s_req.address = std::stoll(tokens[5]);
         }
 
-        if (m2s_rsp.setOpcodeName(tokens[6]))
+        if (m2s_rsp.set_opcode_name(tokens[6]))
         {
             m2s_rsp.valid = true;
             m2s_rsp.bitag = std::stoll(tokens[7]);
         }
 
-        if (m2s_rwd.setMemOpcodeName(tokens[8]))
+        if (m2s_rwd.set_memopcode_name(tokens[8]))
         {
             m2s_rwd.valid = true;
-            m2s_rwd.setSnpTypeName(tokens[9]);
-            m2s_rwd.setMetaValueName(tokens[10]);
+            m2s_rwd.set_snptype_name(tokens[9]);
+            m2s_rwd.set_metavalue_name(tokens[10]);
             m2s_rwd.tag = std::stoll(tokens[11]);
             m2s_rwd.spid = std::stoll(tokens[12]);
             m2s_rwd.address = std::stoll(tokens[13]);
