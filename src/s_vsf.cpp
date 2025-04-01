@@ -116,7 +116,7 @@ void S_VSF_Type::main_product(
         auto it = vsf_line.find(tag);
         if (it != vsf_line.end())
         {
-            if (!it->second.isIdle())
+            if (!it->second.is_idle())
                 continue;
 
             if (it->second.product(
@@ -139,9 +139,9 @@ void S_VSF_Type::main_product(
         else
         {
             S_VSF_Line_Type tmp;
-            std::list<u32> host_id_list;
-            decoder.get_host_pid(host_id_list);
-            tmp.check_host(host_id_list);
+            //std::list<u32> host_id_list;
+            //decoder.get_host_pid(host_id_list);
+            //tmp.check_host(host_id_list);
 
             if (tmp.product(
                     decoder.get_device_pid(),

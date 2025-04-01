@@ -1,30 +1,5 @@
 #include "s_vsf_line.h"
 
-void S_VSF_Line_Type::check_host(const std::list<u32> &host_pid_list)
-{
-    auto it = vsf_line.begin();
-    while (it != vsf_line.end())
-    {
-        u32 key = it->first;
-        if (std::find(host_pid_list.begin(), host_pid_list.end(), key) == host_pid_list.end())
-        {
-            if (it->second != I)
-                CPP_ERROR("ERROR: A Dirty Cache Line May Be Left in a Deleted Host!");
-            it = vsf_line.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
-    for (u32 new_key : host_pid_list)
-    {
-        if (vsf_line.find(new_key) == vsf_line.end())
-        {
-            vsf_line.emplace(new_key, I);
-        }
-    }
-}
 
 bool S_VSF_Line_Type::product(
     const u32 device_pid,
@@ -57,23 +32,22 @@ bool S_VSF_Line_Type::product(
                 m2s_req.metafield == M2S_Req_Type::MetaField_Enum::Meta0State &&
                 m2s_req.metavalue == M2S_Req_Type::MetaValue_Enum::A)
             {
-                
-                for (auto it = vsf_line.begin(); it != vsf_line.end(); ++it)
+                for (u32 i = 0; i < MAX_NUM_HOST; ++i)
                 {
-                    auto& vsf_elecment = *it;
-                    if (vsf_elecment.first == host_pid)
+                    auto& vsf_elecment = vsf_line[i];
+                    if (i == host_pid)
                     {
-                        vsf_elecment.second = NeedForMemData;
+                        vsf_elecment = NeedForMemData;
                     }
-                    else if (vsf_elecment.second != I)
+                    else if (vsf_elecment != I)
                     {
-                        vsf_elecment.second = NeedForRspI;
+                        vsf_elecment = NeedForRspI;
                         S2M_Snp_type s2m_snp_single;
                         s2m_snp_single.valid = true;
                         s2m_snp_single.opcode = S2M_Snp_type::Opcode_Enum::BISnpInv;
                         s2m_snp_single.address = cacheline_addr;
                         s2m_snp_single.spid = device_pid;
-                        s2m_snp_single.dpid = vsf_elecment.first;
+                        s2m_snp_single.dpid = i;
 
                         s2m_snp.push_back(s2m_snp_single);
                     }
@@ -85,22 +59,21 @@ bool S_VSF_Line_Type::product(
                 m2s_req.metafield == M2S_Req_Type::MetaField_Enum::Meta0State &&
                 m2s_req.metavalue == M2S_Req_Type::MetaValue_Enum::S)
             {
-                for (auto it = vsf_line.begin(); it != vsf_line.end(); ++it)
+                for (u32 i = 0; i < MAX_NUM_HOST; ++i)
                 {
-                    auto& vsf_elecment = *it;
-                    if (vsf_elecment.first == host_pid)
-                    {
-                        vsf_elecment.second = NeedForMemData;
+                    auto& vsf_elecment = vsf_line[i];
+                    if (i == host_pid) {
+                        vsf_elecment = NeedForMemData;
                     }
-                    else if (vsf_elecment.second != I)
+                    else if (vsf_elecment != I)
                     {
-                        vsf_elecment.second = NeedForRspIS;
+                        vsf_elecment = NeedForRspIS;
                         S2M_Snp_type s2m_snp_single;
                         s2m_snp_single.valid = true;
                         s2m_snp_single.opcode = S2M_Snp_type::Opcode_Enum::BISnpData;
                         s2m_snp_single.address = cacheline_addr;
                         s2m_snp_single.spid = device_pid;
-                        s2m_snp_single.dpid = vsf_elecment.first;
+                        s2m_snp_single.dpid = i;
 
                         s2m_snp.push_back(s2m_snp_single);
                     }
@@ -112,22 +85,22 @@ bool S_VSF_Line_Type::product(
                 m2s_req.metafield == M2S_Req_Type::MetaField_Enum::Meta0State &&
                 m2s_req.metavalue == M2S_Req_Type::MetaValue_Enum::I)
             {
-                for (auto it = vsf_line.begin(); it != vsf_line.end(); ++it)
+                for (u32 i = 0; i < MAX_NUM_HOST; ++i)
                 {
-                    auto& vsf_elecment = *it;
-                    if (vsf_elecment.first == host_pid)
+                    auto& vsf_elecment = vsf_line[i];
+                    if (i == host_pid)
                     {
-                        vsf_elecment.second = I;
+                        vsf_elecment = I;
                     }
-                    else if (vsf_elecment.second != I)
+                    else if (vsf_elecment != I)
                     {
-                        vsf_elecment.second = NeedForRspI;
+                        vsf_elecment = NeedForRspI;
                         S2M_Snp_type s2m_snp_single;
                         s2m_snp_single.valid = true;
                         s2m_snp_single.opcode = S2M_Snp_type::Opcode_Enum::BISnpInv;
                         s2m_snp_single.address = cacheline_addr;
                         s2m_snp_single.spid = device_pid;
-                        s2m_snp_single.dpid = vsf_elecment.first;
+                        s2m_snp_single.dpid = i;
 
                         s2m_snp.push_back(s2m_snp_single);
                     }
@@ -180,9 +153,10 @@ bool S_VSF_Line_Type::product(
         }
 
         bool has_needfor_flag = 0;
-        for (auto& vsf_elecment : vsf_line)
+        for (u32 i = 0; i < MAX_NUM_HOST; ++i)
         {
-            if (vsf_elecment.second == NeedForRspI || vsf_elecment.second == NeedForRspIS)
+            auto& vsf_elecment = vsf_line[i];
+            if (vsf_elecment == NeedForRspI || vsf_elecment == NeedForRspIS)
             {
                 has_needfor_flag = 1;
                 break;
@@ -206,9 +180,10 @@ bool S_VSF_Line_Type::product(
             rd_addr = Rd_Addr_Type(true, cacheline_addr);
 
             vsf_line[host_pid] = EM;
-            for (auto vsf_elecment : vsf_line)
+            for (u32 i = 0; i < MAX_NUM_HOST; ++i)
             {
-                if (vsf_elecment.second == S)
+                auto& vsf_elecment = vsf_line[i];
+                if (vsf_elecment == S)
                 {
                     vsf_line[host_pid] = S;
                     break;
