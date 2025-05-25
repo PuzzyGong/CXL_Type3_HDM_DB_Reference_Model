@@ -1,31 +1,10 @@
-/*******************************************************
- *  Filename: tasks.json
- *  Date: 2025-03-21
- *  Maked By Chatgpt-4o
- *
- *******************************************************/
 {
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Make Build",
+            "label": "Make Cppcompile",
             "type": "shell",
-            "command": "make",
-            "args": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "Make Clean",
-            "type": "shell",
-            "command": "make",
-            "args": ["clean"],
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            }
+            "command": "make cppcompile"
         }
     ]
 }

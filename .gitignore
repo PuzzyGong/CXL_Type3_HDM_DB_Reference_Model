@@ -1,3 +1,33 @@
-# 这些文件不会被版本控制
-*
-*.o
+# VCS build artifacts
+csrc/
+simv
+simv.daidir/
+ucli.key
+DVEfiles/
+inter.vpd
+vc_hdrs.h
+*.log
+*.vpd
+*.fsdb
+*.trn
+*.vdb
+.__snapshot*
+.synopsys_dve_rebuild.tcl
+AN.DB/
+urgReport/
+libs/
+
+# VSCode temp
+.vscode/settings.json
+.Makefile.swp
+
+# Archive files
+*.tar.gz
+
+# C++ build outputs
+cpp/out/main
+cpp/out/main.exe
+cpp/out/*.o
+
+#
+password.docx
